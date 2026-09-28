@@ -25,12 +25,12 @@
             <td>{{ticket.status}}</td>
             <td>
                 @if(ticket.status === "ABERTO"){
-                <button (click)="abrirModalAssociar(ticket.id)">Associar</button>
+                <button (click)="abrirModalAssociar(ticket)">Associar</button>
                 }
                 @else if(ticket.status === "EM_ANALISE"){
-                <button>Definir Prioridade</button>
-                <button>Resolver</button>
-                <button>Cancelar</button>
+                <button (click)="abrirModalPrioridade(ticket)">Definir Prioridade</button>
+                <button (click)="abrirModalResolver(ticket)">Resolver</button>
+                <button (click)="abrirModalCancelar(ticket)">Cancelar</button>
                 } @else {
                 <span class="sem-acoes">Nenhuma ação disponível</span>
                 }
@@ -45,7 +45,7 @@
     [aberto]="modalAssociarAberta()"
     (fechar)="modalAssociarAberta.set(false)">
 
-    <div class="form-associar">
+    <div class="form-modal">
         <div>
             <label for="campo-usuario">Usuário</label>
             <select id="campo-usuario" [(ngModel)]="ticketAssociar.idUsuario">
@@ -63,3 +63,24 @@
         (click)="modalAssociarAberta.set(false)">Cancelar</button>
     <button modal-acoes class="sucesso" (click)="associar()">Associar</button>
 </app-modal>
+
+<app-definir-prioridade
+    [aberto]="modalPrioridadeAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalPrioridadeAberta.set(false)"
+    (definido)="aoDefinirPrioridade($event)" />
+
+<app-resolver
+    [aberto]="modalResolverAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalResolverAberta.set(false)"
+    (resolvido)="aoResolver($event)" />
+
+<app-cancelar
+    [aberto]="modalCancelarAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalCancelarAberta.set(false)"
+    (cancelado)="aoCancelar($event)" />

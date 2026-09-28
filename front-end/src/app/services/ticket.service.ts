@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { TicketAssociar, TicketCadastro, TicketResposta } from '../models/tickets.model';
+import { TicketAssociar, TicketCadastro, TicketCancelar, TicketDefinirPrioridade, TicketResolver, TicketResposta } from '../models/tickets.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,5 +27,17 @@ export class TicketService {
 
   associar(id: number, ticket: TicketAssociar): Observable<TicketResposta> {
     return this.http.post<TicketResposta>(`${this.baseUrl}/${id}/associar`, ticket);
+  }
+
+  definirPrioridade(id: number, dado: TicketDefinirPrioridade): Observable<TicketResposta> {
+    return this.http.post<TicketResposta>(`${this.baseUrl}/${id}/definir-prioridade`, dado);
+  }
+
+  resolver(id: number, dado: TicketResolver): Observable<TicketResposta> {
+    return this.http.post<TicketResposta>(`${this.baseUrl}/${id}/resolver`, dado);
+  }
+
+  cancelar(id: number, dado: TicketCancelar): Observable<TicketResposta> {
+    return this.http.post<TicketResposta>(`${this.baseUrl}/${id}/cancelar`, dado);
   }
 }

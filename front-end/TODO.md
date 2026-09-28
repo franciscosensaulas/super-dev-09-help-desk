@@ -1,3 +1,5 @@
+ver docs/README.md para o estado atual (o que ja foi implementado e o que falta)
+
 criar o componente
 adicionar rota no app.routes
 adicionar link(routerLink) na lista para tela de criar
